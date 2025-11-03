@@ -1,0 +1,202 @@
+/* =============================
+   Home Page Styles
+   ============================= */
+
+/* --- Hero Section --- */
+.hero {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch; /* 👈 makes both columns equal height */
+  flex-wrap: wrap;
+  margin-bottom: 0; /* remove extra gap so sections share consistent padding */
+  padding: 80px 20px; /* match `.home` vertical spacing */
+  gap: 20px;
+  background-color: var(--background-color, #f9fafb);
+}
+
+/* --- Hero Content --- */
+.hero-content {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  padding: 30px;
+  background-color: var(--card-bg, #ffffff);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  min-height: 450px; /* 👈 consistent height */
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-family: "Poppins", cursive, sans-serif;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--text-color, #111827);
+}
+
+.hero-content p {
+  margin: 8px 0;
+  line-height: 1.5;
+  color: var(--text-color, #374151);
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+/* --- Hero Image --- */
+.hero-image {
+  flex: 1 1 45%;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px; /* 👈 matches hero-content height */
+  background-color: var(--card-bg, #ffffff);
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 95%;
+  height: 95%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Buttons --- */
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  border: none;
+}
+
+/* Primary (Blue) Button */
+.btn-primary {
+  background-color: #1d4ed8;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #153eaf;
+}
+
+/* Outline Button (Dark/Light Mode Aware) */
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-color, #111827);
+  border: 2px solid var(--border-color, #94a3b8);
+}
+
+.btn-outline:hover {
+  background-color: var(--border-color, #94a3b8);
+  color: var(--text-color, #fff);
+}
+
+/* Groups of Buttons */
+.hero-buttons,
+.main-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 24px;
+}
+
+/* --- Bottom Section --- */
+.home {
+  background-color: var(--footer-bg, #f3f4f6);
+  text-align: center;
+  padding: 80px 20px;
+  transition: background-color 0.3s;
+}
+
+.main h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-color, #111827);
+}
+
+.main p {
+  color: var(--text-color, #374151);
+  opacity: 0.8;
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
+.features {
+  display: flex;
+  justify-content: center; /* center the row horizontally */
+  align-items: center; /* center items vertically in the container */
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 20px 10px;
+  min-height: 120px; /* gives space so vertical centering is visible */
+}
+
+.features > div {
+  flex: 0 1 200px; /* fixed-ish width but flexible */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center content vertically inside each card */
+  padding: 18px 22px;
+  border-radius: 10px;
+  background-color: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 1.6rem;
+  margin: 0 0 6px 0;
+  color: var(--text-color, #111827);
+}
+
+.features p {
+  margin: 0;
+  color: var(--text-color, #374151);
+  opacity: 0.85;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 40px 16px; /* reduce vertical padding on small screens to keep layout compact */
+  }
+
+  .hero-content,
+  .hero-image {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .hero-content {
+    margin-bottom: 20px;
+  }
+
+  .home {
+    padding: 40px 16px; /* match reduced mobile padding for symmetry */
+  }
+
+  /* Stack features on smaller screens for better readability */
+  .features {
+    flex-direction: column;
+    gap: 12px;
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .features > div {
+    width: 100%;
+    max-width: 700px;
+  }
+}
