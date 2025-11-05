@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
@@ -7,9 +6,11 @@ const Navbar = () => {
 
   useEffect(() => {
     if (darkMode) {
-      document.body.classList.add("dark-mode");
+      document.body.classList.add("dark-mode", "theme-dark");
+      document.body.classList.remove("theme-light");
     } else {
-      document.body.classList.remove("dark-mode");
+      document.body.classList.add("theme-light");
+      document.body.classList.remove("dark-mode", "theme-dark");
     }
   }, [darkMode]);
 

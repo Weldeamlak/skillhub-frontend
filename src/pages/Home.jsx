@@ -1,17 +1,57 @@
 // Home.jsx
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
+import { instructorsData } from "../data/data";
+
+const slugify = (name) =>
+  name
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]/g, "");
 
 const Home = () => {
+  const [instructorImages, setInstructorImages] = useState(
+    instructorsData.map((i) => i.defaultImage)
+  );
+  const objectURLsRef = useRef([]);
+
+  useEffect(() => {
+    return () => {
+      // Cleanup created object URLs on unmount
+      objectURLsRef.current.forEach((url) => {
+        if (url && url.startsWith("blob:")) URL.revokeObjectURL(url);
+      });
+    };
+  }, []);
+
+  const handleImageChange = (index, e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+
+    const prev = objectURLsRef.current[index];
+    if (prev && prev.startsWith("blob:")) URL.revokeObjectURL(prev);
+
+    objectURLsRef.current[index] = url;
+
+    setInstructorImages((prev) => {
+      const next = [...prev];
+      next[index] = url;
+      return next;
+    });
+  };
+
   return (
     <>
       <section className="hero">
         <div className="hero-content">
           <h1>Learn. Teach. Earn.</h1>
           <p>
-               SkillHub Ethiopia is your premier online learning marketplace.<br />
-               Connect with expert instructors, master new skills,<br />
-               and grow your career on your own schedule.
+            SkillHub Ethiopia is your premier online learning marketplace.
+            <br />
+            Connect with expert instructors, master new skills,
+            <br />
+            and grow your career on your own schedule.
           </p>
           <div className="hero-buttons">
             <button className="btn btn-primary">Browse Courses</button>
@@ -26,32 +66,69 @@ const Home = () => {
           />
         </div>
       </section>
+
       <section className="features">
-          <div className="totalStudent">
-               <h2>12.5k+</h2>
-               <p>Active Students</p>
-          </div>
-          <div className="totalCourses">
-               <h2>2.5k</h2>
-               <p>Courses Available</p>
-          </div>
-          <div className="totalInstructors">
-               <h2>850+</h2>
-               <p>Expert Instructors</p>
-          </div>
-          <div className="rating">
-               <h2>4.8</h2>
-               <p>Average Course Rating</p>
-          </div>
+        <div className="totalStudent">
+          <h2>12.5k+</h2>
+          <p>Active Students</p>
+        </div>
+        <div className="totalCourses">
+          <h2>2.5k</h2>
+          <p>Courses Available</p>
+        </div>
+        <div className="totalInstructors">
+          <h2>850+</h2>
+          <p>Expert Instructors</p>
+        </div>
+        <div className="ratings">
+          <h2>4.8</h2>
+          <p>Average Course Rating</p>
+        </div>
       </section>
+
       <section className="pop-feat-course">
         <div className="popular">
           <div className="search-bar">
             <input type="text" placeholder="Search courses..." />
             <button>Search</button>
-           </div>   
+          </div>
 
-          {/* Added: Popular Courses block (header adjusted, meta row added) */}
+          <div className="featured-course">
+            <h2>Popular Categories</h2>
+            <div className="course-list">
+              <div className="course-item">
+                <div className="course-icon">
+                  <i className="fas fa-code"></i>
+                  <p>2.5k courses</p>
+                </div>
+                <h3>Programming</h3>
+              </div>
+
+              <div className="course-item">
+                <div className="course-icon">
+                  <i className="fas fa-briefcase"></i>
+                  <p>900 courses</p>
+                </div>
+                <h3>Business</h3>
+              </div>
+
+              <div className="course-item">
+                <div className="course-icon">
+                  <i className="fas fa-palette"></i>
+                  <p>1.8k courses</p>
+                </div>
+                <h3>Design</h3>
+              </div>
+              <div className="course-item">
+                <div className="course-icon">
+                  <i className="fas fa-users"></i>
+                  <p>1.2k courses</p>
+                </div>
+                <h3>Communication</h3>
+              </div>
+            </div>
+          </div>
+
           <div className="popular-courses">
             <div className="popular-courses-header">
               <h2>Popular Courses</h2>
@@ -60,7 +137,10 @@ const Home = () => {
 
             <div className="course-card-grid">
               <div className="course-card">
-                <img src="/src/images/web-development-course.png" alt="Web Development" />
+                <img
+                  src="/src/images/web-development-course.png"
+                  alt="Web Development"
+                />
                 <div className="course-card-body">
                   <h4>Web Development Fundamentals</h4>
                   <p className="instructor">Abebe Tekle</p>
@@ -72,7 +152,10 @@ const Home = () => {
               </div>
 
               <div className="course-card">
-                <img src="/src/images/digital-marketing-course.png" alt="Digital Marketing" />
+                <img
+                  src="/src/images/digital-marketing-course.png"
+                  alt="Digital Marketing"
+                />
                 <div className="course-card-body">
                   <h4>Digital Marketing Essentials</h4>
                   <p className="instructor">Ayana Gemechu</p>
@@ -84,7 +167,10 @@ const Home = () => {
               </div>
 
               <div className="course-card">
-                <img src="/src/images/ui-ux-design-course.png" alt="UI/UX Design" />
+                <img
+                  src="/src/images/ui-ux-design-course.png"
+                  alt="UI/UX Design"
+                />
                 <div className="course-card-body">
                   <h4>UI/UX Design Masterclass</h4>
                   <p className="instructor">Tadesse Abebe</p>
@@ -96,7 +182,10 @@ const Home = () => {
               </div>
 
               <div className="course-card">
-                <img src="/src/images/business-leadership-course.png" alt="Business Leadership" />
+                <img
+                  src="/src/images/business-leadership-course.png"
+                  alt="Business Leadership"
+                />
                 <div className="course-card-body">
                   <h4>Business Leadership</h4>
                   <p className="instructor">Meaza Tekle</p>
@@ -109,43 +198,27 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="featured-course">
-          <h2>Popular Catagories</h2>
-          <div className="course-list">
-            <div className="course-item">
-               <div className="course-icon">
-                  <i className="fas fa-code"></i> 
-                  <p>2.5k courses</p>
-               </div>
-              <h3>Programming</h3>
-            </div>
+      </section>
 
-            <div className="course-item">
-               <div className="course-icon">
-                  <i className="fas fa-briefcase"></i> 
-                  <p>900 courses</p>
-               </div>
-              <h3>Business</h3>
-            </div>
-
-
-            <div className="course-item">
-               <div className="course-icon">
-                  <i className="fas fa-palette"></i>    
-                  <p>1.8k courses</p>
-               </div>
-              <h3>Design</h3> 
-            </div>
-            <div className="course-item">
-               <div className="course-icon"> 
-                  <i className="fas fa-users"></i> 
-                  <p>1.2k courses</p>
-               </div>
-              <h3>Communication</h3>
-            </div>
-          </div>
+      <section className="top-instructor">
+        <h2>Top Instructors</h2>
+        <div className="instructor-cards">
+          {instructorsData.map((inst, idx) => {
+            const slug = slugify(inst.name);
+            return (
+              <div className="instructor-card" key={idx}>
+                <img src={inst.defaultImage} alt={`Instructor ${inst.name}`} />
+                <h3>{inst.name}</h3>
+                <p>{inst.role}</p>
+                <a className="view-profile-btn" href={`/instructors/${slug}`}>
+                  View Profile
+                </a>
+              </div>
+            );
+          })}
         </div>
       </section>
+
       <section className="home">
         <div className="main">
           <h1>Ready to Start Learning?</h1>

@@ -1,21 +1,39 @@
-/* navbar.css */
+:root {
+  --navbar-height: 72px;
+  --navbar-bg: #ffffff;
+  --navbar-border: rgba(15, 23, 42, 0.04);
+  --navbar-shadow: 0 6px 18px rgba(11, 15, 22, 0.06);
+  --text-color: #0b1226;
+  --button-bg: #eef2ff;
+}
+
+/* Navbar */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 60px;
-  background-color: var(--bg-color);
-  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
-}
-
-.nav-left {
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--navbar-bg);
+  z-index: 9999;
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: var(--navbar-shadow);
+  backdrop-filter: saturate(120%) blur(6px);
+}
+.navbar .nav-left,
+.navbar .nav-center,
+.navbar .nav-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.nav-left {
   gap: 10px;
 }
-
 .nav-logo {
   background-color: #1d4ed8;
   color: white;
@@ -23,26 +41,22 @@
   border-radius: 8px;
   padding: 6px 10px;
 }
-
 .nav-center a {
   color: var(--text-color);
   font-weight: 500;
   text-decoration: none;
 }
-
 .nav-right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .theme-toggle {
   background: none;
   border: none;
   font-size: 20px;
   cursor: pointer;
 }
-
 .login-btn {
   background-color: var(--button-bg);
   color: var(--text-color);
@@ -51,7 +65,6 @@
   border-radius: 6px;
   cursor: pointer;
 }
-
 .signup-btn {
   background-color: #1d4ed8;
   color: #fff;
@@ -61,7 +74,50 @@
   cursor: pointer;
   font-weight: 500;
 }
-
 .signup-btn:hover {
   background-color: #153eaf;
+}
+
+/* Light/Dark Theme + Alternation */
+.theme-light {
+  --page-bg: #f8fafc;
+  --text-color: #0b1226;
+  --navbar-bg: #ffffff;
+  --navbar-border: rgba(11, 15, 22, 0.04);
+  --button-bg: #eef2ff;
+  --section-1-bg: #ffffff;
+  --section-2-bg: #f1f5f9;
+}
+.theme-dark {
+  --page-bg: #0b1226;
+  --text-color: #e6eef8;
+  --navbar-bg: #071029;
+  --navbar-border: rgba(255, 255, 255, 0.03);
+  --button-bg: #10243a;
+  --section-1-bg: #071224;
+  --section-2-bg: #0b1b2b;
+}
+.theme-light,
+.theme-dark {
+  background: var(--page-bg);
+  color: var(--text-color);
+}
+.theme-light .navbar,
+.theme-dark .navbar {
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+}
+.page-section {
+  padding: 48px 20px;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+.theme-light .page-section:nth-of-type(odd),
+.theme-dark .page-section:nth-of-type(odd) {
+  background: var(--section-1-bg);
+  color: var(--text-color);
+}
+.theme-light .page-section:nth-of-type(even),
+.theme-dark .page-section:nth-of-type(even) {
+  background: var(--section-2-bg);
+  color: var(--text-color);
 }
