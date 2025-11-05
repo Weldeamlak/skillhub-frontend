@@ -1,7 +1,7 @@
 // Home.jsx
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/home.css";
-import { instructorsData } from "../data/data";
+import { instructorsData } from "../data//instractor/data";
 
 const slugify = (name) =>
   name

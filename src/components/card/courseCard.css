@@ -1,0 +1,160 @@
+.course-card {
+  width: 90%;
+  margin: 0 auto;
+
+  background: var(--panel, #fff);
+  border-radius: 14px;
+  padding: 0;
+  min-height: 360px;
+  border: 1px solid var(--card-border, rgba(17, 24, 39, 0.06));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+.course-card:focus-within,
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.08);
+  border-color: rgba(34, 89, 255, 0.08);
+}
+.course-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+.course-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Title row */
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.title-row h4 {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+/* instructor */
+.instructor {
+  margin: 0;
+  color: var(--muted, #6b7280);
+  font-size: 0.95rem;
+}
+.instructor--mt {
+  margin-top: 6px;
+}
+
+/* rating moved to upper area */
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.rating-number {
+  color: var(--text-color, #0b1226);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rating-star {
+  color: #f1c40f;
+  margin-left: 4px;
+  font-size: 0.95rem;
+}
+.rating-students {
+  color: var(--muted, #6b7280);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* short description */
+.short-desc {
+  color: var(--muted, #6b7280);
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+}
+
+/* meta row - divider above it and keep at card bottom */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+
+  border-top: 1px solid rgba(15, 23, 42, 0.04);
+  padding-top: 16px;
+
+  /* stretch full width so children can be placed left & right */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* make the container hold price on left and button on right */
+.meta-right {
+  /* remove margin-left:auto; make it use full width */
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* price left, button right */
+  align-items: center;
+  gap: 12px;
+}
+
+.price {
+  font-weight: 900;
+  color: var(--price-color, #243c8a);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* badge & button */
+.course-badge {
+  background: rgba(13, 42, 148, 0.06);
+  color: #243c8a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.view-course-btn {
+  background: #243c8a;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  border: none;
+  margin-top: 0;
+  box-shadow: 0 6px 18px rgba(36, 60, 138, 0.12);
+}
+
+/* Responsive tweaks */
+@media (max-width: 540px) {
+  .course-card {
+    width: 94%;
+  }
+  .meta-right {
+    gap: 8px;
+  }
+  .price {
+    font-size: 1.05rem;
+  }
+}
