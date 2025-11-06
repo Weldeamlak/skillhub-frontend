@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./sidebar.css";
 
 const CATEGORIES = [
@@ -20,18 +20,47 @@ const RATINGS = [
   "4.5★ and up",
 ];
 
-const Sidebar = ({ onApply }) => {
-  const [category, setCategory] = useState("All Categories");
-  const [level, setLevel] = useState("All Levels");
-  const [price, setPrice] = useState("All Prices");
-  const [rating, setRating] = useState("All Ratings");
+const Sidebar = ({ filters = {}, onChange = () => {}, onClear = () => {} }) => {
+  const defaultFilters = {
+    category: "All Categories",
+    level: "All Levels",
+    price: "All Prices",
+    rating: "All Ratings",
+    ...filters,
+  };
+
+  const [category, setCategory] = useState(defaultFilters.category);
+  const [level, setLevel] = useState(defaultFilters.level);
+  const [price, setPrice] = useState(defaultFilters.price);
+  const [rating, setRating] = useState(defaultFilters.rating);
+
+  // keep local state in sync if parent resets filters
+  useEffect(() => {
+    setCategory(filters.category ?? defaultFilters.category);
+    setLevel(filters.level ?? defaultFilters.level);
+    setPrice(filters.price ?? defaultFilters.price);
+    setRating(filters.rating ?? defaultFilters.rating);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.category, filters.level, filters.price, filters.rating]);
+
+  // notify parent whenever any filter changes
+  useEffect(() => {
+    onChange({
+      category,
+      level,
+      price,
+      rating,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, level, price, rating]);
 
   const handleClear = () => {
-    setCategory("All Categories");
-    setLevel("All Levels");
-    setPrice("All Prices");
-    setRating("All Ratings");
-    if (onApply) onApply(null);
+    setCategory(defaultFilters.category);
+    setLevel(defaultFilters.level);
+    setPrice(defaultFilters.price);
+    setRating(defaultFilters.rating);
+    onClear(); // inform parent
+    // onChange will fire due to state updates (useEffect)
   };
 
   return (
